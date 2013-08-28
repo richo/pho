@@ -29,7 +29,23 @@ func main() {
 
     init_runtime()
 
-    php_eval("echo \"butts lol\n\";")
+    test_counter := func() {
+        php_eval(`
+function count() {
+    static $counter = 0;
+
+    while($counter < 100) {
+        printf("%d\n", $counter);
+        $counter++;
+    }
+}
+count();
+`)
+    }
+
+    go test_counter()
+    go test_counter()
+    test_counter()
 
 }
 func php_lib_path() string {
