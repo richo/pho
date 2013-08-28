@@ -17,7 +17,9 @@ func main() {
         log.Fatal("Couldn't find php_embed_init")
     }
 
-    init_runtime(0, php_init_args_ptr())
+    args_ptr := php_init_args_ptr()
+
+    init_runtime(0, args_ptr)
 }
 
 func php_lib_path() string {
