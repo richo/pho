@@ -19,3 +19,8 @@ void init_php(void) {
     init_args = php_init_args();
     php_embed_init(1, init_args);
 }
+
+void eval(char* script) {
+    static const char* name = "<EVAL>";
+    zend_eval_string(script, NULL, name);
+}
