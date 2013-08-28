@@ -15,4 +15,4 @@ bin/pho: src/bitbucket.org/binet/go-ffi/pkg/ffi
 	go build $(GOFLAGS) -o bin/pho pho
 
 lib/%.so: ext/%.c
-	${CC} -fPIC -o $@ $^ -lphp5
+	${CC} -fPIC -o $@ $^ -L/home/ubuntu/.php/versions/trunk/lib -lphp5
