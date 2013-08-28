@@ -12,3 +12,13 @@ char** php_init_args(void) {
 
     return args;
 }
+
+void init_php(void) {
+    char **init_args;
+
+    init_args = php_init_args();
+    php_embed_init(1, init_args);
+
+
+    return 0;
+}
