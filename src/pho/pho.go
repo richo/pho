@@ -10,7 +10,7 @@ func main() {
     load_path := php_lib_path()
     lib, err := ffi.NewLibrary(load_path)
 
-    init_runtime := ffi.Fct("php_embed_init", Int, []Type{ffo.Int, ffi.Char})
+    init_runtime := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Char})
 
     init_runtime(0, "a")
 }
