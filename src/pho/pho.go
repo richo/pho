@@ -10,7 +10,7 @@ func main() {
     load_path := php_lib_path()
     lib, err := ffi.NewLibrary(load_path)
 
-    init_runtime, err := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Char})
+    init_runtime, err := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Pointer})
     if err != nil {
         log.Fatal("Couldn't find php_embed_init")
     }
