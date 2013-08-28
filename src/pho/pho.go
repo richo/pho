@@ -10,7 +10,7 @@ import (
 
 func main() {
     load_path := php_lib_path()
-    lib, err := ffi.NewLibrary(load_path)
+    _, err := ffi.NewLibrary(load_path)
     if err != nil {
         log.Fatal("Couldn't load libphp5.so")
     }
@@ -20,7 +20,7 @@ func main() {
         log.Fatal("Couldn't load hacks.so")
     }
 
-    init_runtime, err := php_shims.Fct("init_php", ffi.Int, []ffi.Type{ffi.Int, ffi.Void})
+    init_runtime, err := php_shims.Fct("init_php", ffi.Int, []ffi.Type{})
     if err != nil {
         log.Fatal("Couldn't find init_php")
     }
