@@ -2,7 +2,7 @@ package main
 
 import (
     "os"
-    "fmt"
+    "log"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
 )
 
@@ -19,7 +19,7 @@ func php_lib_path() string {
     php_path := os.Getenv("PHP_LIB_PATH")
 
     if (php_path == "") {
-        fatal("PHP_LIB_PATH unset")
+        log.Fatal("PHP_LIB_PATH unset")
     }
 
     return php_path
