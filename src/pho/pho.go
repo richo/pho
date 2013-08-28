@@ -31,19 +31,19 @@ func main() {
     log.Print("Initialized php runtime")
 
     test_counter := func() {
-        // php_eval(`
-// echo "butts\n";
-// function count() {
-    // printf("Entered func\n");
-    // static $counter = 0;
+        php_eval(`
+echo "butts\n";
+function count() {
+    printf("Entered func\n");
+    $counter = 0;
 
-    // while($counter < 100) {
-        // printf("%d\n", $counter);
-        // $counter++;
-    // }
-// }
-// count();
-// `)
+    while($counter < 100) {
+        printf("%d\n", $counter);
+        $counter++;
+    }
+}
+count();
+`)
     }
 
     // go test_counter()
