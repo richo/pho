@@ -19,7 +19,9 @@ func main() {
 
     args_ptr := php_init_args_ptr()
 
-    init_runtime(0, args_ptr)
+    log.Printf("args_ptr: %p", args_ptr)
+
+    init_runtime(1, args_ptr)
 }
 
 func php_lib_path() string {
