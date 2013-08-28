@@ -18,7 +18,4 @@ void init_php(void) {
 
     init_args = php_init_args();
     php_embed_init(1, init_args);
-
-
-    return 0;
 }
