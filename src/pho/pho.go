@@ -44,8 +44,8 @@ func main() {
 `)
     }
 
-    // go test_counter()
-    // go test_counter()
+    go test_counter()
+    go test_counter()
     test_counter()
 
     log.Print("Evaling echo")
