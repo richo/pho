@@ -11,7 +11,14 @@ import (
 func main() {
     load_path := php_lib_path()
     lib, err := ffi.NewLibrary(load_path)
+    if err != nil {
+        log.Fatal("Couldn't load libphp5.so")
+    }
     php_shims, err := ffi.NewLibrary("lib/hacks.so")
+    if err != nil {
+        log.Print(err)
+        log.Fatal("Couldn't load hacks.so")
+    }
 
     init_runtime, err := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Void})
     if err != nil {

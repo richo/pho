@@ -29,6 +29,6 @@ void eval(char* script) {
 void eval_and_print(char* script) {
     void* ret = NULL;
 
-    zend_val_string(script, ret, "<eval_and_print>");
+    zend_eval_string(script, ret, "<eval_and_print>");
     printf("eval_and_print> %p\n", ret);
 }
