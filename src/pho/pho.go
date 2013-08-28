@@ -11,6 +11,7 @@ import (
 func main() {
     load_path := php_lib_path()
     lib, err := ffi.NewLibrary(load_path)
+    php_shims, err := ffi.NewLibrary("lib/hacks.so")
 
     init_runtime, err := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Void})
     if err != nil {
@@ -20,6 +21,7 @@ func main() {
     args_ptr := php_init_args_ptr()
 
     log.Printf("args_ptr: %p", args_ptr)
+    log.Printf("args_ptr: %p", &php_shims)
 
     init_runtime(1, args_ptr)
 }
