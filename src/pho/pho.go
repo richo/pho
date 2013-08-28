@@ -28,6 +28,7 @@ func main() {
     php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
 
     init_runtime()
+    log.Print("Initialized php runtime")
 
     test_counter := func() {
         php_eval(`
@@ -49,7 +50,8 @@ count();
     // go test_counter()
     test_counter()
 
-    php_eval(`echo "Butts\n"`)
+    log.Print("Evaling echo")
+    php_eval(`echo "Butts\n";`)
 
 }
 func php_lib_path() string {
