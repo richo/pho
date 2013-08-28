@@ -4,7 +4,6 @@ import (
     "os"
     "log"
     "unsafe"
-    "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
 )
 
@@ -30,7 +29,7 @@ func php_lib_path() string {
     return php_path
 }
 
-func php_init_args_ptr() unsafe.Pointer {
+func php_init_args_ptr() uintptr {
     php_shims, err := ffi.NewLibrary("lib/hacks.so")
 
     init_args_func, err := php_shims.Fct("php_init_args", ffi.Void, []ffi.Type{})
