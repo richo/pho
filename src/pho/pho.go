@@ -36,5 +36,6 @@ func php_init_args_ptr() unsafe.Pointer {
     if err != nil {
         log.Fatal("Couldn't find php_init_args")
     }
-    return init_args_func()
+    ret := init_args_func()
+    return &ret
 }
