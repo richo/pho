@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <php/main/php.h>
+#include <sapi/embed/php_embed.h>
 
 char** php_init_args(void);
 

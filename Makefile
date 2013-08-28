@@ -1,6 +1,8 @@
 GOPATH=$(PWD)
 export GOPATH
 
+PHP_HOME=/home/ubuntu/.php/versions/trunk
+
 # Hack, fixup
 CC=gcc
 
@@ -15,4 +17,4 @@ bin/pho: src/bitbucket.org/binet/go-ffi/pkg/ffi
 	go build $(GOFLAGS) -o bin/pho pho
 
 lib/%.so: ext/%.c
-	${CC} -shared -fPIC -o $@ $^ -Wl,-rpath /home/ubuntu/.php/versions/trunk/lib -L/home/ubuntu/.php/versions/trunk/lib -I/home/ubuntu/.php/versions/trunk/include -lphp5
+	${CC} -shared -fPIC -o $@ $^ -Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php -I${PHP_HOME}/include/php/Zend -I${PHP_HOME}/include/php/TSRM -I${PHP_HOME}/include/php/main -lphp5
