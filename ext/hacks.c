@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 char** php_init_args(void);
 
@@ -23,4 +24,11 @@ void init_php(void) {
 void eval(char* script) {
     static const char* name = "<EVAL>";
     zend_eval_string(script, NULL, name);
+}
+
+void eval_and_print(char* script) {
+    void* ret = NULL;
+
+    zend_val_string(script, ret, "<eval_and_print>");
+    printf("eval_and_print> %p\n", ret);
 }
