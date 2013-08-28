@@ -32,7 +32,7 @@ func php_lib_path() string {
 func php_init_args_ptr() unsafe.Pointer {
     php_shims, err := ffi.NewLibrary("lib/hacks.so")
 
-    init_args_func = php_shims.Fct("php_init_args", ffi.Void, []ffi.Type{})
+    init_args_func, err = php_shims.Fct("php_init_args", ffi.Void, []ffi.Type{})
     if err != nil {
         log.Fatal("Couldn't find php_init_args")
     }
