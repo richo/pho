@@ -31,6 +31,7 @@ func main() {
 
     test_counter := func() {
         php_eval(`
+echo "butts\n";
 function count() {
     printf("Entered func\n");
     static $counter = 0;
@@ -47,6 +48,8 @@ count();
     // go test_counter()
     // go test_counter()
     test_counter()
+
+    php_eval(`echo "Butts\n"`)
 
 }
 func php_lib_path() string {
