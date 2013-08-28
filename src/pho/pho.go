@@ -3,6 +3,7 @@ package main
 import (
     "os"
     "log"
+    "unsafe"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
 )
 
