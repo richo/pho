@@ -32,17 +32,9 @@ func main() {
 
     test_counter := func() {
         php_eval(`
-echo "butts\n";
-function count() {
-    printf("Entered func\n");
-    $counter = 0;
-
-    while($counter < 100) {
-        printf("%d\n", $counter);
-        $counter++;
-    }
-}
-count();
+        function butts() {
+            printf("buuuuuts\n");
+        }
 `)
     }
 
