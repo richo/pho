@@ -28,7 +28,7 @@ func php_lib_path() string {
     return php_path
 }
 
-func php_init_args_ptr() ffi.Void {
+func php_init_args_ptr() unsafe.Pointer {
     php_shims, err := ffi.NewLibrary("lib/hacks.so")
 
     init_args_func = php_shims.Fct("php_init_args", ffi.Void, []ffi.Type{})
