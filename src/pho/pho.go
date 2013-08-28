@@ -33,7 +33,11 @@ func main() {
     test_counter := func() {
         php_eval(`
         function butts() {
-            printf("buuuuuts\n");
+            $count = 0;
+            while($count < 100) {
+                printf("%d\n", $count);
+                $count++;
+            }
         }
 
         butts();
