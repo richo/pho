@@ -4,6 +4,7 @@ import (
     "os"
     "log"
     "unsafe"
+    "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
 )
 
@@ -37,5 +38,5 @@ func php_init_args_ptr() unsafe.Pointer {
         log.Fatal("Couldn't find php_init_args")
     }
     ret := init_args_func()
-    return &ret
+    return ret.UnsafeAddr()
 }
