@@ -32,6 +32,7 @@ func main() {
     test_counter := func() {
         php_eval(`
 function count() {
+    printf("Entered func\n");
     static $counter = 0;
 
     while($counter < 100) {
