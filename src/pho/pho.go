@@ -35,6 +35,8 @@ func main() {
         function butts() {
             printf("buuuuuts\n");
         }
+
+        butts();
 `)
     }
 
