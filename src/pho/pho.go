@@ -10,12 +10,12 @@ func main() {
     load_path := php_lib_path()
     lib, err := ffi.NewLibrary(load_path)
 
-    init_runtime, err := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Pointer})
+    init_runtime, err := lib.Fct("php_embed_init", ffi.Int, []ffi.Type{ffi.Int, ffi.Void})
     if err != nil {
         log.Fatal("Couldn't find php_embed_init")
     }
 
-    init_runtime(0, "a")
+    init_runtime(0, php_init_args_ptr())
 }
 
 func php_lib_path() string {
@@ -26,4 +26,14 @@ func php_lib_path() string {
     }
 
     return php_path
+}
+
+func php_init_args_ptr() ffi.Void {
+    php_shims, err := ffi.NewLibrary("lib/hacks.so")
+
+    init_args_func = php_shims.Fct("php_init_args", ffi.Void, []ffi.Type{})
+    if err != nil {
+        log.Fatal("Couldn't find php_init_args")
+    }
+    return init_args_func()
 }
