@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <php/main/php.h>
+
 char** php_init_args(void);
 
 static const char* init_arg = "embed4";
