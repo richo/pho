@@ -50,10 +50,10 @@ func main() {
 
     php_eval("$foobar = \"butts\";")
     foobar := php_get_int("foobar");
-    butts := foobar.UnsafeAddr()
-    log.Printf("Got value of foobar: %v", *butts)
-    log.Printf("Got value of foobar: %#v", *butts)
-    log.Printf("Got value of foobar: %T", *butts)
+    butts := (unsafe.Pointer)foobar.UnsafeAddr()
+    log.Printf("Got value of foobar: %v", butts)
+    log.Printf("Got value of foobar: %#v", butts)
+    log.Printf("Got value of foobar: %T", butts)
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
