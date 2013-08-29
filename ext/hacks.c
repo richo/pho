@@ -82,9 +82,9 @@ php_ret_t* zval2go(zval **value) {
     php_ret_t *ret;
     ret = (php_ret_t*)malloc(sizeof(php_ret_t));
 
-    switch(Z_TYPE_P(value)) {
+    switch(Z_TYPE_P(*value)) {
         case IS_LONG:
-            ret->data = Z_LVAL_P(value);
+            ret->data = Z_LVAL_P(*value);
             ret->type = php_int_t;
             return ret;
             break;
