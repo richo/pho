@@ -40,17 +40,20 @@ func main() {
     init_runtime()
     log.Print("Initialized php runtime")
 
+    log.Print("Setting $max_prints to 10")
+    php_set_int("max_prints", 10)
+
     test_counter := func() {
         php_eval(`
-        function butts() {
+        function butts($max) {
             $count = 0;
-            while($count < 10) {
+            while($count < $max) {
                 printf("%d\n", $count);
                 $count++;
             }
         }
 
-        butts();
+        butts($max_prints);
 `)
     }
 
