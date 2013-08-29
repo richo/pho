@@ -80,7 +80,7 @@ long get_int_value(char* key) {
 
 php_ret_t* zval2go(zval **value) {
     php_ret_t *ret;
-    ret = malloc(sizeof(php_ret_t));
+    ret = (php_ret_t*)malloc(sizeof(php_ret_t));
 
     switch(Z_TYPE_P(value)) {
         case IS_LONG:

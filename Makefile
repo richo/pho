@@ -4,7 +4,7 @@ export GOPATH
 PHP_HOME=/home/ubuntu/.php/versions/trunk
 
 # Hack, fixup
-CC=gcc
+CC=clang
 
 .PHONY: bin/pho
 
