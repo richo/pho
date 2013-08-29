@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdio.h>
 
 #include <sapi/embed/php_embed.h>
 
@@ -24,6 +25,10 @@ char** php_init_args(void) {
     args[1] = NULL;
 
     return args;
+}
+
+long return_long(void) {
+    return (long)12345;
 }
 
 void init_php(void) {
