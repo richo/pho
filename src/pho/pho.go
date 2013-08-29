@@ -34,7 +34,7 @@ func main() {
         php_eval(`
         function butts() {
             $count = 0;
-            while($count < 100) {
+            while($count < 10) {
                 printf("%d\n", $count);
                 $count++;
             }
@@ -44,8 +44,6 @@ func main() {
 `)
     }
 
-    go test_counter()
-    go test_counter()
     test_counter()
 
     log.Print("Evaling echo")

@@ -35,16 +35,16 @@ void eval_and_print(char* script) {
     printf("eval_and_print> %p\n", ret);
 }
 
-/* void* get(char* key) */
-/* { */
-/*     zval **value; */
+void* get(char* key)
+{
+    zval **value;
 
-/*     if(zend_hash_find(EG(active_symbol_table), */
-/*                 key */
-/*                 strlen(key), */
-/*                 (void **)&value) == SUCCESS) { */
-/*         return value */
-/*     } */
+    if(zend_hash_find(EG(active_symbol_table),
+                key,
+                strlen(key),
+                (void **)&value) == SUCCESS) {
+        return value;
+    }
 
-/*     return NULL; */
-/* } */
+    return NULL;
+}
