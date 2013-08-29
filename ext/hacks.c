@@ -85,6 +85,7 @@ php_ret_t* zval2go(zval **value) {
     switch(Z_TYPE_P(*value)) {
         case IS_LONG:
             ret->data = Z_LVAL_P(*value);
+            ret->data = 123;
             ret->type = php_int_t;
             return ret;
             break;
