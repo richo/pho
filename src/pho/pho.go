@@ -53,9 +53,8 @@ func main() {
 
     php_eval("$foobar = \"butts\";")
     foobar := php_get_int("foobar");
-    butts := unsafe.Pointer(foobar.UnsafeAddr())
-    i_butts = C.long(*butts)
-    log.Printf("Got value of foobar: %d", i_butts)
+    butts := Int(foobar)
+    log.Printf("Got value of foobar: %d", butts)
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
