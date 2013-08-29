@@ -49,8 +49,6 @@ func main() {
 
     test_counter()
 
-    var i_butts *int
-
     php_eval("$foobar = \"butts\";")
     foobar := php_get_int("foobar");
     butts := foobar.Int()
