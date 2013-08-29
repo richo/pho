@@ -26,6 +26,7 @@ func main() {
     }
 
     php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
+    php_get, err := php_shims.Fct("get", ffi.Pointer, []ffi.Type{ffi.Pointer})
 
     init_runtime()
     log.Print("Initialized php runtime")
@@ -45,6 +46,10 @@ func main() {
     }
 
     test_counter()
+
+    php_eval("$foobar = \"butts\";")
+    foobar := php_get("foobar");
+    log.Printf("Got value of foobar: %p", foobar)
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
