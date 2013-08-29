@@ -43,8 +43,36 @@ void* get(char* key)
                 key,
                 strlen(key),
                 (void **)&value) == SUCCESS) {
-        return value;
+        return zval2go(value);
+        // TODO return a Type,ptr array to unpack on the go side.
     }
 
     return NULL;
+}
+
+// Stupid debugging harness to test variable traversal
+long get_int_value(char* key) {
+{
+    zval **value;
+
+    if(zend_hash_find(EG(active_symbol_table),
+                key,
+                strlen(key),
+                (void **)&value) == SUCCESS) {
+        return *zval2go(value);
+        // TODO return a Type,ptr array to unpack on the go side.
+    }
+
+    return NULL;
+}
+
+void* zval2go(zval *value) {
+  switch(Z_TYPE_P(value)) {
+    case IS_LONG:
+      return &Z_LVAL_P(value);
+      break;
+    default:
+      // Not implemented
+      return NULL;
+  }
 }
