@@ -28,10 +28,6 @@ char** php_init_args(void) {
     return args;
 }
 
-long return_long(void) {
-    return (long)12345;
-}
-
 void init_php(void) {
     char **init_args;
 
