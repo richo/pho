@@ -54,8 +54,8 @@ func main() {
         foobar := php_get_int(v);
         butts := foobar.Int()
         log.Printf("Got value of %s: %d", v, butts)
-        butts := C.GoString(foobar.Pointer())
-        log.Printf("Got value of %s: %s", v, butts)
+        butt := C.GoString(foobar.Pointer())
+        log.Printf("Got value of %s: %s", v, butt)
     }
 
 
