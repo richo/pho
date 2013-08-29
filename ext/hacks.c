@@ -101,10 +101,10 @@ php_ret_t* zval2go(zval **value) {
             return ret;
             break;
         case IS_STRING:
-            int len = Z_STRLEN_P(value) + 1;
+            int len = Z_STRLEN_P(*value) + 1;
             char* str = malloc(sizeof(char) * len);
             memset(str, 0, len);
-            memcpy(str, Z_STRVAL_P(value), len - 1);
+            memcpy(str, Z_STRVAL_P(*value), len - 1);
             ret->data = str;
             ret->type = php_str_t;
             return ret;
