@@ -3,7 +3,7 @@ package main
 import (
     "os"
     "log"
-    _ "unsafe"
+    "unsafe"
     // "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
     "C"
@@ -28,7 +28,7 @@ func main() {
 
     _php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
     // php_get, err := php_shims.Fct("get", ffi.Pointer, []ffi.Type{ffi.Pointer})
-    php_get_int, err := php_shims.Fct("get_int_value", ffi.Long, []ffi.Type{ffi.Pointer})
+    php_get_int, err := php_shims.Fct("get_int_value", ffi.Pointer, []ffi.Type{ffi.Pointer})
 
     php_eval := func(s string) {
         log.Printf("PHP> %s", s)
@@ -57,14 +57,15 @@ func main() {
 
     dump_variable := func(v string, t string) {
         foobar := php_get_int(v);
+        var p unsafe.Pointer = unsafe.Pointer(foobar.UnsafeAddr())
         switch t {
         case "int":
-            butts := foobar.Int()
-            log.Printf("Got value of %s: %d", v, butts)
+            var i_val *int = (*int)(p)
+            log.Printf("Got value of %s: %d", v, *i_val)
             return
         case "str":
-            butt := foobar.String()
-            log.Printf("Got value of %s: %s", v, butt)
+            var s_val string = C.GoString((*C.char)(p))
+            log.Printf("Got value of %s: %s", v, s_val)
             return
         }
     }
