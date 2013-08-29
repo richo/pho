@@ -93,6 +93,8 @@ long get_int_value(char* key) {
 php_ret_t* zval2go(zval **value) {
     php_ret_t *ret;
     ret = (php_ret_t*)malloc(sizeof(php_ret_t));
+    int len;
+    char* str;
 
     switch(Z_TYPE_P(*value)) {
         case IS_LONG:
@@ -101,8 +103,8 @@ php_ret_t* zval2go(zval **value) {
             return ret;
             break;
         case IS_STRING:
-            int len = Z_STRLEN_P(*value) + 1;
-            char* str = malloc(sizeof(char) * len);
+            len = Z_STRLEN_P(*value) + 1;
+            str = malloc(sizeof(char) * len);
             memset(str, 0, len);
             memcpy(str, Z_STRVAL_P(*value), len - 1);
             ret->data = str;
