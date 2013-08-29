@@ -58,7 +58,7 @@ func main() {
 
 
     l := return_long()
-    log.Printf("Long Value: %d", l)
+    log.Printf("Long Value: %d", l.Int())
 
     php_eval("$foobar = \"butts\";")
     dump_variable("foobar")
