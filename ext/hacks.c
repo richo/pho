@@ -74,7 +74,7 @@ long get_int_value(char* key) {
 
     if(zend_hash_find(EG(active_symbol_table),
                 key,
-                strlen(key),
+                strlen(key) + 1,
                 (void **)&value) == SUCCESS) {
         ret = zval2go(value);
         if (ret->type == php_int_t) {
@@ -93,7 +93,6 @@ php_ret_t* zval2go(zval **value) {
     switch(Z_TYPE_P(*value)) {
         case IS_LONG:
             ret->data = Z_LVAL_P(*value);
-            ret->data = 123;
             ret->type = php_int_t;
             return ret;
             break;
