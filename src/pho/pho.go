@@ -49,10 +49,15 @@ func main() {
 
     test_counter()
 
+    dump_variable := func(v string) {
+        foobar := php_get_int(v);
+        butts := foobar.Int()
+        log.Printf("Got value of %s: %d", v, butts)
+    }
+
     php_eval("$foobar = \"butts\";")
-    foobar := php_get_int("foobar");
-    butts := foobar.Int()
-    log.Printf("Got value of foobar: %d", butts)
+    dump_variable("foobar")
+    dump_variable("$foobar")
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
