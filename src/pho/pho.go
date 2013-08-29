@@ -3,7 +3,7 @@ package main
 import (
     "os"
     "log"
-    "unsafe"
+    _ "unsafe"
     // "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
     "C"
@@ -53,7 +53,7 @@ func main() {
 
     php_eval("$foobar = \"butts\";")
     foobar := php_get_int("foobar");
-    butts := Int(foobar)
+    butts := foobar.Int()
     log.Printf("Got value of foobar: %d", butts)
 
     log.Print("Evaling echo")
