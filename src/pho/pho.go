@@ -28,7 +28,7 @@ func main() {
 
     php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
     // php_get, err := php_shims.Fct("get", ffi.Pointer, []ffi.Type{ffi.Pointer})
-    php_get_int, err := php_shims.Fct("get_int_value", ffi.Pointer, []ffi.Type{ffi.Long})
+    php_get_int, err := php_shims.Fct("get_int_value", ffi.Long, []ffi.Type{ffi.Pointer})
 
     init_runtime()
     log.Print("Initialized php runtime")
