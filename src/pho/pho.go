@@ -54,6 +54,8 @@ func main() {
         foobar := php_get_int(v);
         butts := foobar.Int()
         log.Printf("Got value of %s: %d", v, butts)
+        butts := C.GoString(foobar.Pointer())
+        log.Printf("Got value of %s: %s", v, butts)
     }
 
 
@@ -62,7 +64,8 @@ func main() {
 
     php_eval("$foobar = 15;")
     dump_variable("foobar")
-    dump_variable("$foobar")
+    php_eval("$foobar = \"butts\";")
+    dump_variable("foobar")
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
