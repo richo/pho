@@ -26,10 +26,16 @@ func main() {
         log.Fatal("Couldn't find init_php")
     }
 
-    php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
+    _php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
     // php_get, err := php_shims.Fct("get", ffi.Pointer, []ffi.Type{ffi.Pointer})
     php_get_int, err := php_shims.Fct("get_int_value", ffi.Long, []ffi.Type{ffi.Pointer})
     return_long, err := php_shims.Fct("return_long", ffi.Long, []ffi.Type{})
+
+    php_eval := func(s string) {
+        log.Printf("PHP> %s", s)
+        _php_eval(s)
+    }
+
 
     init_runtime()
     log.Print("Initialized php runtime")
