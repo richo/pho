@@ -5,7 +5,8 @@
 #include <sapi/embed/php_embed.h>
 
 typedef enum {
-    php_int_t
+    php_int_t,
+    php_str_t
 } php_types;
 
 typedef struct {
@@ -78,8 +79,11 @@ long get_int_value(char* key) {
                 (void **)&value) == SUCCESS) {
         ret = zval2go(value);
         if (ret->type == php_int_t) {
-            fprintf(stderr, "C Value: %d\n", ret->data);
+            fprintf(stderr, "C int Value: %d\n", ret->data);
             return (long)ret->data;
+        } else if (ret->type == php_str_t) {
+            fprintf(stderr, "C str Value: %s\n", ret->data);
+            return (char*)ret->data;
         }
     }
 
@@ -94,6 +98,15 @@ php_ret_t* zval2go(zval **value) {
         case IS_LONG:
             ret->data = Z_LVAL_P(*value);
             ret->type = php_int_t;
+            return ret;
+            break;
+        case IS_STRING:
+            int len = Z_STRLEN_P(value) + 1;
+            char* str = malloc(sizeof(char) * len);
+            memset(str, 0, len);
+            memcpy(str, Z_STRVAL_P(value), len - 1);
+            ret->data = str;
+            ret->type = php_str_t;
             return ret;
             break;
         default:
