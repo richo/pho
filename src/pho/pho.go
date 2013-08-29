@@ -6,6 +6,7 @@ import (
     "unsafe"
     // "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
+    "C"
 )
 
 func main() {
@@ -53,11 +54,8 @@ func main() {
     php_eval("$foobar = \"butts\";")
     foobar := php_get_int("foobar");
     butts := unsafe.Pointer(foobar.UnsafeAddr())
-    i_butts = butts;
-    log.Printf("Got value of foobar: %d", *i_butts)
-    log.Printf("Got value of foobar: %v", butts)
-    log.Printf("Got value of foobar: %#v", butts)
-    log.Printf("Got value of foobar: %T", butts)
+    i_butts = C.long(*butts)
+    log.Printf("Got value of foobar: %d", i_butts)
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
