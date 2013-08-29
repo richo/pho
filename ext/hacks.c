@@ -13,6 +13,7 @@ typedef struct {
 } php_ret_t;
 
 char** php_init_args(void);
+php_ret_t* zval2go(zval **value);
 
 static const char* init_arg = "embed4";
 
@@ -77,8 +78,9 @@ long get_int_value(char* key) {
     return NULL;
 }
 
-php_ret_t* zval2go(zval *value) {
-    php_ret_t *ret = malloc(sizeof(php_ret_t));
+php_ret_t* zval2go(zval **value) {
+    php_ret_t *ret;
+    ret = malloc(sizeof(php_ret_t));
 
     switch(Z_TYPE_P(value)) {
         case IS_LONG:
