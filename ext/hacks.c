@@ -65,12 +65,15 @@ long get_int_value(char* key) {
     zval **value;
     php_ret_t *ret;
 
+    fprintf(stderr, "C lookup: %s\n", key);
+
     if(zend_hash_find(EG(active_symbol_table),
                 key,
                 strlen(key),
                 (void **)&value) == SUCCESS) {
         ret = zval2go(value);
         if (ret->type == php_int_t) {
+            fprintf(stderr, "C Value: %d\n", ret->data);
             return (long)ret->data;
         }
     }
