@@ -63,7 +63,7 @@ void* get(char* key)
 }
 
 // Stupid debugging harness to test variable traversal
-long get_int_value(char* key) {
+void* get_int_value(char* key) {
     zval **value;
     php_ret_t *ret;
 
