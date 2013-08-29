@@ -50,12 +50,18 @@ func main() {
 
     test_counter()
 
-    dump_variable := func(v string) {
+    dump_variable := func(v string, t string) {
         foobar := php_get_int(v);
-        butts := foobar.Int()
-        log.Printf("Got value of %s: %d", v, butts)
-        butt := C.GoString(foobar.Pointer())
-        log.Printf("Got value of %s: %s", v, butt)
+        switch t {
+        case "int":
+            butts := foobar.Int()
+            log.Printf("Got value of %s: %d", v, butts)
+            return
+        case "str":
+            butt := foobar.String()
+            log.Printf("Got value of %s: %s", v, butt)
+            return
+        }
     }
 
 
@@ -63,9 +69,9 @@ func main() {
     log.Printf("Long Value: %d", l.Int())
 
     php_eval("$foobar = 15;")
-    dump_variable("foobar")
+    dump_variable("foobar", "int")
     php_eval("$foobar = \"butts\";")
-    dump_variable("foobar")
+    dump_variable("foobar", "str")
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
