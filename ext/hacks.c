@@ -3,6 +3,15 @@
 
 #include <sapi/embed/php_embed.h>
 
+typedef enum {
+    php_int_t
+} php_types;
+
+typedef struct {
+    php_types type;
+    void* data;
+} php_ret_t;
+
 char** php_init_args(void);
 
 static const char* init_arg = "embed4";
@@ -54,25 +63,32 @@ void* get(char* key)
 long get_int_value(char* key) {
 {
     zval **value;
+    php_ret_t *ret;
 
     if(zend_hash_find(EG(active_symbol_table),
                 key,
                 strlen(key),
                 (void **)&value) == SUCCESS) {
-        return *zval2go(value);
-        // TODO return a Type,ptr array to unpack on the go side.
+        ret = zval2go(value);
+        if (ret->type == php_int_t) {
+            return (long)ret->data;
+        }
     }
 
     return NULL;
 }
 
-void* zval2go(zval *value) {
-  switch(Z_TYPE_P(value)) {
-    case IS_LONG:
-      return &Z_LVAL_P(value);
-      break;
-    default:
-      // Not implemented
-      return NULL;
-  }
+php_ret_t* zval2go(zval *value) {
+    php_ret_t *ret = malloc(sizeof(php_ret_t));
+
+    switch(Z_TYPE_P(value)) {
+        case IS_LONG:
+            ret->data = Z_LVAL_P;
+            ret->type = php_int_t;
+            return ret;
+            break;
+        default:
+            // Not implemented
+            return NULL;
+    }
 }
