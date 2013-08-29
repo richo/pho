@@ -29,6 +29,7 @@ func main() {
     _php_eval, err := php_shims.Fct("eval", ffi.Void, []ffi.Type{ffi.Pointer})
     // php_get, err := php_shims.Fct("get", ffi.Pointer, []ffi.Type{ffi.Pointer})
     php_get_int, err := php_shims.Fct("get_int_value", ffi.Pointer, []ffi.Type{ffi.Pointer})
+    php_set_int, err := php_shims.Fct("set_int_value", ffi.Pointer, []ffi.Type{ffi.Pointer, ffi.Long})
 
     php_eval := func(s string) {
         log.Printf("PHP> %s", s)

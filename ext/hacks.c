@@ -47,6 +47,15 @@ void eval_and_print(char* script) {
     printf("eval_and_print> %p\n", ret);
 }
 
+void* set_int_value(char* key, long v) {
+    zval *value;
+
+    MAKE_STD_ZVAL(value);
+    ZVAL_LONG(value, v);
+
+    ZEND_SET_SYMBOL(EG(active_symbol_table), key, value);
+}
+
 // Stupid debugging harness to test variable traversal
 void* get_int_value(char* key) {
     zval **value;
