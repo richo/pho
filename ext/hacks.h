@@ -8,7 +8,10 @@ typedef enum {
 
 struct php_ret_t {
     php_types typ;
-    void* data;
+    union {
+        long long_data;
+        void* ptr_data;
+    };
 };
 
 #endif
