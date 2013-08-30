@@ -60,10 +60,10 @@ struct php_ret_t get_int_value(char* key) {
                 strlen(key) + 1,
                 (void **)&value) == SUCCESS) {
         ret = zval2go(value);
-        if (ret->type == php_int_t) {
+        if (ret->typ == php_int_t) {
             fprintf(stderr, "C int Value: %d\n", ret->data);
             return ret;
-        } else if (ret->type == php_str_t) {
+        } else if (ret->typ == php_str_t) {
             fprintf(stderr, "C str Value: %s\n", ret->data);
             return ret;
         }
@@ -81,7 +81,7 @@ struct php_ret_t* zval2go(zval **value) {
     switch(Z_TYPE_P(*value)) {
         case IS_LONG:
             ret->data = Z_LVAL_P(*value);
-            ret->type = php_int_t;
+            ret->typ = php_int_t;
             return ret;
             break;
         case IS_STRING:
@@ -90,7 +90,7 @@ struct php_ret_t* zval2go(zval **value) {
             memset(str, 0, len);
             memcpy(str, Z_STRVAL_P(*value), len - 1);
             ret->data = str;
-            ret->type = php_str_t;
+            ret->typ = php_str_t;
             return ret;
             break;
         default:
