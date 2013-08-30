@@ -49,7 +49,7 @@ void* set_int_value(char* key, long v) {
 }
 
 // Stupid debugging harness to test variable traversal
-void* get_int_value(char* key) {
+php_ret_t get_int_value(char* key) {
     zval **value;
     php_ret_t *ret;
 
@@ -62,10 +62,10 @@ void* get_int_value(char* key) {
         ret = zval2go(value);
         if (ret->type == php_int_t) {
             fprintf(stderr, "C int Value: %d\n", ret->data);
-            return (long)ret->data;
+            return ret;
         } else if (ret->type == php_str_t) {
             fprintf(stderr, "C str Value: %s\n", ret->data);
-            return (char*)ret->data;
+            return ret;
         }
     }
 

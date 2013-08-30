@@ -62,14 +62,14 @@ func main() {
 
     dump_variable := func(v string, t string) {
         foobar := php_get_int(v);
-        var p unsafe.Pointer = unsafe.Pointer(foobar.UnsafeAddr())
+        var p C.struct_php_ret_t = unsafe.Pointer(foobar.UnsafeAddr())
         switch t {
         case "int":
-            var i_val *int = (*int)(p)
+            var i_val *int = (*int)(p.data)
             log.Printf("Got value of %s: %d", v, *i_val)
             return
         case "str":
-            var s_val string = C.GoString(*(**C.char)(p))
+            var s_val string = C.GoString(*(**C.char)(p.data))
             log.Printf("Got value of %s: %s", v, s_val)
             return
         }
