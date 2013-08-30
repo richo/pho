@@ -7,7 +7,7 @@
 #include <sapi/embed/php_embed.h>
 
 char** php_init_args(void);
-php_ret_t* zval2go(zval **value);
+struct php_ret_t* zval2go(zval **value);
 
 static const char* init_arg = "embed4";
 
@@ -49,9 +49,9 @@ void* set_int_value(char* key, long v) {
 }
 
 // Stupid debugging harness to test variable traversal
-php_ret_t get_int_value(char* key) {
+struct php_ret_t get_int_value(char* key) {
     zval **value;
-    php_ret_t *ret;
+    struct php_ret_t *ret;
 
     fprintf(stderr, "C lookup: %s\n", key);
 
@@ -72,9 +72,9 @@ php_ret_t get_int_value(char* key) {
     return NULL;
 }
 
-php_ret_t* zval2go(zval **value) {
-    php_ret_t *ret;
-    ret = (php_ret_t*)malloc(sizeof(php_ret_t));
+struct php_ret_t* zval2go(zval **value) {
+    struct php_ret_t *ret;
+    ret = (struct php_ret_t*)malloc(sizeof(struct php_ret_t));
     int len;
     char* str;
 
