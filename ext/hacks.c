@@ -2,17 +2,9 @@
 #include <stdio.h>
 #include <stdio.h>
 
+#include "hacks.h"
+
 #include <sapi/embed/php_embed.h>
-
-typedef enum {
-    php_int_t,
-    php_str_t
-} php_types;
-
-typedef struct {
-    php_types type;
-    void* data;
-} php_ret_t;
 
 char** php_init_args(void);
 php_ret_t* zval2go(zval **value);
