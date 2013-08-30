@@ -49,7 +49,7 @@ void* set_int_value(char* key, long v) {
 }
 
 // Stupid debugging harness to test variable traversal
-struct php_ret_t get_int_value(char* key) {
+struct php_ret_t* get_int_value(char* key) {
     zval **value;
     struct php_ret_t *ret;
 
@@ -69,7 +69,7 @@ struct php_ret_t get_int_value(char* key) {
         }
     }
 
-    return NULL;
+    return ret;
 }
 
 struct php_ret_t* zval2go(zval **value) {
