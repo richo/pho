@@ -6,6 +6,7 @@ import (
     "unsafe"
     // "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
+    // #include "../../ext/hacks.h"
     "C"
 )
 
