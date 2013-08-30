@@ -69,8 +69,8 @@ func main() {
         log.Printf("Got value of %s: %#v", v, p)
         switch t {
         case "int":
-            var i_val int = (int)(p.data)
-            log.Printf("Got value of %s: %d", v, i_val)
+            var i_val *int = (*int)(p.data)
+            log.Printf("Got value of %s: %d", v, *i_val)
             return
         case "str":
             var s_val string = C.GoString((*C.char)(p.data))
