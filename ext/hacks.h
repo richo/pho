@@ -17,4 +17,9 @@ struct php_ret_t {
     union intern_php_type data;
 };
 
+struct php_ret_t* get_int_value(char* key);
+void* set_int_value(char*, long);
+void init_php(void);
+void eval(char*);
+
 #endif
