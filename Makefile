@@ -9,7 +9,7 @@ PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php 
 
 .PHONY: bin/pho test
 
-all: bin/pho lib/hacks.so
+all: lib/hacks.so bin/pho
 
 src/bitbucket.org/binet/go-ffi/pkg/ffi:
 	go get bitbucket.org/binet/go-ffi/pkg/ffi
