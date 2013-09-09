@@ -68,7 +68,7 @@ func main() {
             log.Printf("Got value of %s: %d", v, i_val)
             return
         case "str":
-            var s_val string = C.GoString((*C.char)(unsafe.Pointer(&s.data)))
+            var s_val string = C.GoString(*(**C.char)(unsafe.Pointer(&s.data)))
             log.Printf("Got value of %s: %s", v, s_val)
             return
         }
