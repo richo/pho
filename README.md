@@ -3,6 +3,10 @@ pho
 
 PHP and Golang. Always a good decision.
 
+### Hacking
+
+Take careful note of where you branch if you hack on this repo. It will undergo and epic rebase at some point.
+
 ### Debugging
 
 ```bash
