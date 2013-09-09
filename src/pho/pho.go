@@ -55,22 +55,20 @@ func main() {
 
     dump_variable := func(v string, t string) {
         s := get_int_value(v)
-        var p = *s
-        log.Printf("Got value of %s: %s", v, p)
-        log.Printf("Got value of %s: %v", v, p)
-        log.Printf("Got value of %s: %#v", v, p)
-        var data C.union_intern_php_type = (C.union_intern_php_type)(p.data)
 
-        log.Printf("%s.typ: %d", v, (int)(s.typ))
+        log.Printf("Got value of %s: %s", v, s)
+        log.Printf("Got value of %s: %v", v, s)
+        log.Printf("Got value of %s: %#v", v, s)
+
         log.Printf("%s.typ: %d", v, (C.enum_php_types)((*s).typ))
 
         switch t {
         case "int":
-            var i_val int = *(*int)(unsafe.Pointer(&p.data))
+            var i_val int = *(*int)(unsafe.Pointer(&s.data))
             log.Printf("Got value of %s: %d", v, i_val)
             return
         case "str":
-            var s_val string = C.GoString((*C.char)(unsafe.Pointer(&data)))
+            var s_val string = C.GoString((*C.char)(unsafe.Pointer(&s.data)))
             log.Printf("Got value of %s: %s", v, s_val)
             return
         }

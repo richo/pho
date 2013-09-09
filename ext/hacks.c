@@ -60,6 +60,7 @@ struct php_ret_t* get_int_value(char* key) {
                 strlen(key) + 1,
                 (void **)&value) == SUCCESS) {
         ret = zval2go(value);
+        fprintf(stderr, "C data location: %p\n", &(ret->data.as_long));
         if (ret->typ == php_int_t) {
             fprintf(stderr, "C int Value: %d\n", ret->data.as_long);
             return ret;
