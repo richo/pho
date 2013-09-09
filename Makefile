@@ -13,10 +13,7 @@ PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php 
 
 all: lib/libhacks.so bin/pho
 
-src/bitbucket.org/binet/go-ffi/pkg/ffi:
-	go get bitbucket.org/binet/go-ffi/pkg/ffi
-
-bin/pho: src/bitbucket.org/binet/go-ffi/pkg/ffi
+bin/pho:
 	go build $(GOFLAGS) -o bin/pho pho
 
 lib/lib%.so: ext/%.c
