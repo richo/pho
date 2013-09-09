@@ -9,7 +9,7 @@ PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php 
 
 .PHONY: bin/pho test
 
-all: lib/hacks.so bin/pho
+all: lib/libhacks.so bin/pho
 
 src/bitbucket.org/binet/go-ffi/pkg/ffi:
 	go get bitbucket.org/binet/go-ffi/pkg/ffi
@@ -17,7 +17,7 @@ src/bitbucket.org/binet/go-ffi/pkg/ffi:
 bin/pho: src/bitbucket.org/binet/go-ffi/pkg/ffi
 	go build $(GOFLAGS) -o bin/pho pho
 
-lib/%.so: ext/%.c
+lib/lib%.so: ext/%.c
 	${CC} -shared -fPIC -g -o $@ $^ ${PHPFLAGS}
 
 .test/%: test/%.c

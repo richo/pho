@@ -6,6 +6,7 @@ import (
     "unsafe"
     // "reflect"
     ffi "bitbucket.org/binet/go-ffi/pkg/ffi"
+    // #cgo LDFLAGS: -L../../lib/ -lhacks
     // #include "../../ext/hacks.h"
     "C"
 )
@@ -16,7 +17,7 @@ func main() {
     if err != nil {
         log.Fatal("Couldn't load libphp5.so")
     }
-    php_shims, err := ffi.NewLibrary("lib/hacks.so")
+    php_shims, err := ffi.NewLibrary("lib/libhacks.so")
     if err != nil {
         log.Print(err)
         log.Fatal("Couldn't load hacks.so")
