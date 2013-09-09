@@ -68,6 +68,10 @@ func main() {
         log.Printf("Got value of %s: %v", v, p)
         log.Printf("Got value of %s: %#v", v, p)
         var data C.union_intern_php_type = (C.union_intern_php_type)(p.data)
+
+        log.Printf("%s.typ: %d", v, (int)(s.typ))
+        log.Printf("%s.typ: %d", v, (C.enum_php_types)((*s).typ))
+
         switch t {
         case "int":
             var i_val int = *(*int)(unsafe.Pointer(&data))
