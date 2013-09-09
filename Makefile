@@ -2,6 +2,8 @@ GOPATH=$(PWD)
 export GOPATH
 
 PHP_HOME=/home/ubuntu/.php/versions/trunk
+CGO_LDFLAGS=-L$(PWD)/lib -lhacks
+export CGO_LDFLAGS
 
 # Hack, fixup
 CC=clang
