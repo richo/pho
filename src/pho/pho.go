@@ -67,13 +67,14 @@ func main() {
         log.Printf("Got value of %s: %s", v, p)
         log.Printf("Got value of %s: %v", v, p)
         log.Printf("Got value of %s: %#v", v, p)
+        var data C.union_intern_php_type = (C.union_intern_php_type)(p.data)
         switch t {
         case "int":
-            var i_val int = (int)(p.long_data)
-            log.Printf("Got value of %s: %d", v, *i_val)
+            var i_val int = *(*int)(unsafe.Pointer(&data))
+            log.Printf("Got value of %s: %d", v, i_val)
             return
         case "str":
-            var s_val string = C.GoString((*C.char)((*p).str_data))
+            var s_val string = C.GoString((*C.char)(unsafe.Pointer(&data)))
             log.Printf("Got value of %s: %s", v, s_val)
             return
         }

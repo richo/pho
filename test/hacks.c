@@ -4,8 +4,8 @@
 test struct_works(void) {
     struct php_ret_t s;
 
-    s.ptr_data = (void*) 1234;
-    ASSERT(s.long_data == 1234, "Data doesn't come through the union");
+    s.data.as_ptr = (void*) 1234;
+    ASSERT(s.data.as_long == 1234, "Data doesn't come through the union");
     PASS;
 }
 

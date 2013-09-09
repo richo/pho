@@ -6,12 +6,15 @@ typedef enum {
     php_str_t
 } php_types;
 
+union intern_php_type {
+    long as_long;
+    void* as_ptr;
+    char* as_str;
+};
+
 struct php_ret_t {
     php_types typ;
-    union {
-        long long_data;
-        void* ptr_data;
-    };
+    union intern_php_type data;
 };
 
 #endif
