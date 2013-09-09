@@ -53,7 +53,7 @@ func main() {
 
     test_counter()
 
-    dump_variable := func(v string, t string) {
+    dump_variable := func(v string) {
         s := get_int_value(v)
 
         log.Printf("Got value of %s: %s", v, s)
@@ -62,12 +62,12 @@ func main() {
 
         log.Printf("%s.typ: %d", v, (C.enum_php_types)((*s).typ))
 
-        switch t {
-        case "int":
+        switch s.typ {
+        case C.php_int_t:
             var i_val int = *(*int)(unsafe.Pointer(&s.data))
             log.Printf("Got value of %s: %d", v, i_val)
             return
-        case "str":
+        case C.php_str_t:
             var s_val string = C.GoString(*(**C.char)(unsafe.Pointer(&s.data)))
             log.Printf("Got value of %s: %s", v, s_val)
             return
@@ -75,9 +75,9 @@ func main() {
     }
 
     php_eval("$foobar = 15;")
-    dump_variable("foobar", "int")
+    dump_variable("foobar")
     php_eval("$foobar = \"butts\";")
-    dump_variable("foobar", "str")
+    dump_variable("foobar")
 
     log.Print("Evaling echo")
     php_eval(`echo "Butts\n";`)
