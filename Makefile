@@ -18,7 +18,7 @@ bin/pho: src/bitbucket.org/binet/go-ffi/pkg/ffi
 	go build $(GOFLAGS) -o bin/pho pho
 
 lib/%.so: ext/%.c
-	${CC} -shared -fPIC -o $@ $^ ${PHPFLAGS}
+	${CC} -shared -fPIC -g -o $@ $^ ${PHPFLAGS}
 
 .test/%: test/%.c
 	${CC} -o $@ $^ ${PHPFLAGS}
