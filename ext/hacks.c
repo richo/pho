@@ -74,7 +74,7 @@ struct php_ret_t* get_int_value(char* key) {
 }
 
 struct php_ret_t* zval2go(zval **value) {
-    struct php_ret_t *ret;
+    struct php_ret_t *ret = NULL;
     ret = (struct php_ret_t*)malloc(sizeof(struct php_ret_t));
     int len;
     char* str;
@@ -83,7 +83,6 @@ struct php_ret_t* zval2go(zval **value) {
         case IS_LONG:
             ret->data.as_long = Z_LVAL_P(*value);
             ret->typ = php_int_t;
-            return ret;
             break;
         case IS_STRING:
             len = Z_STRLEN_P(*value) + 1;
@@ -92,11 +91,10 @@ struct php_ret_t* zval2go(zval **value) {
             memcpy(str, Z_STRVAL_P(*value), len - 1);
             ret->data.as_str = str;
             ret->typ = php_str_t;
-            return ret;
             break;
         default:
             // Not implemented
-            return NULL;
             break;
     }
+    return ret;
 }
