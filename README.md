@@ -7,6 +7,12 @@ PHP and Golang. Always a good decision.
 
 Take careful note of where you branch if you hack on this repo. It will undergo and epic rebase at some point.
 
+### Build you some php
+
+```
+CC=clang ./configure --enable-debug --without-pear --disable-cli --disable-cgi --enable-embed --prefix ~/.php/versions/trunk
+```
+
 ### Debugging
 
 ```bash
