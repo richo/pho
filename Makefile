@@ -1,7 +1,7 @@
 GOPATH=$(PWD)
 export GOPATH
 
-PHP_HOME=/home/ubuntu/.php/versions/trunk
+PHP_HOME=$(HOME)/.php/versions/trunk
 CGO_LDFLAGS=-L$(PWD)/lib -lhacks -Wl,-rpath $(PWD)/lib
 export CGO_LDFLAGS
 
