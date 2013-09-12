@@ -11,9 +11,9 @@ PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php 
 
 .PHONY: bin/pho test
 
-all: lib/libhacks.so bin/pho
+all: bin/pho
 
-bin/pho:
+bin/pho: lib/libhacks.so
 	go build $(GOFLAGS) -o bin/pho pho
 
 lib/lib%.so: ext/%.c
