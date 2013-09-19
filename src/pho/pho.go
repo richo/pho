@@ -83,12 +83,3 @@ func main() {
     php_eval(`echo "Butts\n";`)
 
 }
-func php_lib_path() string {
-    php_path := os.Getenv("PHP_LIB_PATH")
-
-    if (php_path == "") {
-        log.Fatal("PHP_LIB_PATH unset")
-    }
-
-    return php_path
-}
