@@ -13,6 +13,8 @@ Take careful note of where you branch if you hack on this repo. It will undergo 
 CC=clang ./configure --enable-debug --without-pear --disable-cli --disable-cgi --enable-embed --prefix ~/.php/versions/trunk
 ```
 
+Then install it into ./libs in this repo.
+
 ### Debugging
 
 ```bash

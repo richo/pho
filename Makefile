@@ -2,7 +2,7 @@ GOPATH=$(PWD)
 export GOPATH
 
 PHP_HOME=$(HOME)/.php/versions/trunk
-CGO_LDFLAGS=-L$(PWD)/lib -lhacks -Wl,-rpath $(PWD)/lib
+CGO_LDFLAGS=-L$(PWD)/lib -lhacks -lphp5
 export CGO_LDFLAGS
 
 # Hack, fixup
