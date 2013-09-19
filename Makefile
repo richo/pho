@@ -7,6 +7,7 @@ export CGO_LDFLAGS
 
 # Hack, fixup
 CC=clang
+export CC
 PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php -I${PHP_HOME}/include/php/Zend -I${PHP_HOME}/include/php/TSRM -I${PHP_HOME}/include/php/main -lphp5
 
 .PHONY: bin/pho test
