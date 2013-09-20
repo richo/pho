@@ -4,6 +4,7 @@ import (
     "os"
     "log"
     // #include "../../ext/hacks.h"
+    // #include <dlfcn.h>
     "C"
     "unsafe"
     // "reflect"
@@ -17,6 +18,8 @@ type PhoRuntime struct {
 }
 
 func init_runtime() PhoRuntime {
+    // Idempotent, refcount aside
+    C.dlopen(C.CString("libphp.so"), C.RTLD_NOW)
     rt := unsafe.Pointer(C.init_php());
     return PhoRuntime{rt}
 }
