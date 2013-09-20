@@ -20,11 +20,14 @@ char** php_init_args(void) {
     return args;
 }
 
-void init_php(void) {
+void*** init_php(void) {
+    void ***rt = malloc(sizeof(void*));
     char **init_args;
 
+    // TODO This can live on the stack now
     init_args = php_init_args();
-    php_embed_init(1, init_args);
+    php_embed_init(1, init_args, rt);
+    return rt;
 }
 
 void eval(char* script) {

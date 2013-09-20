@@ -10,7 +10,7 @@ Take careful note of where you branch if you hack on this repo. It will undergo 
 ### Build you some php
 
 ```
-CC=clang ./configure --enable-debug --without-pear --disable-cli --disable-cgi --enable-embed --prefix ~/.php/versions/trunk
+CC=clang ./configure --enable-maintainer-zts --enable-debug --without-pear --disable-cli --disable-cgi --enable-embed --prefix ~/.php/versions/trunk
 ```
 
 Note that on OSX you'll want to merge the pho/master branch of [my fork][1] of

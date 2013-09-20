@@ -5,13 +5,19 @@ import (
     "log"
     // #include "../../ext/hacks.h"
     "C"
-    // "unsafe"
+    "unsafe"
     // "reflect"
     "flag"
 )
 
-func init_runtime() {
-    C.init_php();
+type PhoRuntime struct {
+    // void ***rt
+    rt unsafe.Pointer
+
+}
+
+func init_runtime() PhoRuntime {
+    return unsafe.Pointer(C.init_php());
 }
 
 func php_eval(s string) {
