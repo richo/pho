@@ -10,6 +10,7 @@ char** php_init_args(void);
 struct php_ret_t* zval2go(zval **value);
 
 static const char* init_arg = "embed4";
+static void ***tsrm_ls;
 
 char** php_init_args(void) {
     char **args;
@@ -21,18 +22,17 @@ char** php_init_args(void) {
 }
 
 void*** init_php(void) {
-    void ***rt = malloc(sizeof(void*));
     char **init_args;
 
     // TODO This can live on the stack now
     init_args = php_init_args();
-    php_embed_init(1, init_args, rt);
-    return rt;
+    php_embed_init(1, init_args, &tsrm_ls);
+    return tsrm_ls;
 }
 
 void eval(char* script) {
     static const char* name = "<EVAL>";
-    zend_eval_string(script, NULL, name);
+    zend_eval_string(script, NULL, name, tsrm_ls);
 }
 
 void eval_file(char* filename) {
@@ -49,14 +49,14 @@ void eval_file(char* filename) {
 
   script.free_filename = 0;
 
-  php_execute_script(&script);
+  php_execute_script(&script, tsrm_ls);
 }
 
 
 void eval_and_print(char* script) {
     void* ret = NULL;
 
-    zend_eval_string(script, ret, "<eval_and_print>");
+    zend_eval_string(script, ret, "<eval_and_print>", tsrm_ls);
     printf("eval_and_print> %p\n", ret);
 }
 

@@ -17,7 +17,8 @@ type PhoRuntime struct {
 }
 
 func init_runtime() PhoRuntime {
-    return unsafe.Pointer(C.init_php());
+    rt := unsafe.Pointer(C.init_php());
+    return PhoRuntime{rt}
 }
 
 func php_eval(s string) {
