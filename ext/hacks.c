@@ -9,24 +9,13 @@
 char** php_init_args(void);
 struct php_ret_t* zval2go(zval **value);
 
-static const char* init_arg = "embed4";
 static void ***tsrm_ls;
 
-char** php_init_args(void) {
-    char **args;
-    args = malloc(sizeof(char*) * 2);
-    args[0] = init_arg;
-    args[1] = NULL;
-
-    return args;
-}
+static const int php_argc = 1;
+static const char* php_argv[] = {"embed4", NULL};
 
 void*** init_php(void) {
-    char **init_args;
-
-    // TODO This can live on the stack now
-    init_args = php_init_args();
-    php_embed_init(1, init_args, &tsrm_ls);
+    php_embed_init(php_argc, php_argv, &tsrm_ls);
     return tsrm_ls;
 }
 
