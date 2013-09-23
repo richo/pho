@@ -5,21 +5,11 @@ import (
     "log"
     // #include "../../ext/hacks.h"
     "C"
-    "unsafe"
     // "reflect"
     "flag"
+    php "pho/runtime"
 )
 
-type PhoRuntime struct {
-    // void ***rt
-    rt unsafe.Pointer
-
-}
-
-func init_runtime() PhoRuntime {
-    rt := unsafe.Pointer(C.init_php());
-    return PhoRuntime{rt}
-}
 
 func php_eval(s string) {
     log.Printf("PHP> %s", s)
@@ -43,6 +33,7 @@ func php_eval_file(filename string) {
 }
 
 func main() {
+    php.INIT()
 
     // gos := flag.String("go", "", "run a file in a goroutine")
 
@@ -59,8 +50,6 @@ func main() {
         os.Exit(1)
     }
 
-    init_runtime()
-    log.Print("Initialized php runtime")
 
     php_eval_file(argv[0])
 }
