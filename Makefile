@@ -15,7 +15,7 @@ PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php 
 all: bin/pho
 
 bin/pho: lib/libhacks.so
-	go build $(GOFLAGS) -o bin/pho pho
+	go build -x -work $(GOFLAGS) -o bin/pho pho > .lastbuild
 
 lib/lib%.so: ext/%.c
 	${CC} -shared -fPIC -g -o $@ $^ ${PHPFLAGS}
@@ -25,3 +25,7 @@ lib/lib%.so: ext/%.c
 
 test: .test/hacks
 	./.test/hacks
+
+clean:
+	rm -rf `cat .lastbuild`
+	rm .lastbuild
