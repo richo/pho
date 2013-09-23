@@ -1,0 +1,60 @@
+package args
+
+import (
+    "log"
+    s "strings"
+)
+
+/* Defines a custom parser that deals with the parsing of the pho runtime's flag.
+ */
+
+const (
+    pNone = 0
+    pBin = iota
+    pGo = iota
+    pRest = iota
+)
+
+type PhoArgs struct {
+    Bin string
+    Scripts []string
+    Goscripts []string
+    Rest []string
+}
+
+func Parse(args []string) PhoArgs {
+    r := PhoArgs{}
+    state := pBin
+
+    for _, i := range args {
+        switch state {
+        case pBin:
+            r.Bin = i
+            state = pNone
+            break
+        case pRest:
+            r.Rest = append(r.Rest, i)
+            break
+        case pNone:
+            if s.HasPrefix(i, "--") {
+                switch i {
+                case "--go":
+                    state = pGo
+                case "--":
+                    state = pRest
+                default:
+                    log.Panicf("Unrecognised command line switch: %s", i)
+                }
+                break
+            } else {
+                r.Scripts = append(r.Scripts, i)
+                break
+            }
+        case pGo:
+            r.Goscripts = append(r.Goscripts, i)
+            state = pNone
+            break
+        }
+    }
+    return r
+}

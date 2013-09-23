@@ -6,8 +6,8 @@ import (
     // #include "../../ext/hacks.h"
     "C"
     // "reflect"
-    "flag"
     php "pho/runtime"
+    args "pho/args"
 )
 
 
@@ -34,22 +34,10 @@ func php_eval_file(filename string) {
 
 func main() {
     php.INIT()
+    args := args.Parse(os.Args)
 
-    // gos := flag.String("go", "", "run a file in a goroutine")
-
-    flag.Parse()
-
-    argv := flag.Args()
-    if len(argv) > 1 {
-        flag.PrintDefaults()
-        os.Exit(1)
+    for _, script := range args.Scripts {
+        log.Printf("Evaluating %s", script)
+        php_eval_file(script)
     }
-    if len(argv) < 1 {
-        // TODO repl
-        flag.PrintDefaults()
-        os.Exit(1)
-    }
-
-
-    php_eval_file(argv[0])
 }
