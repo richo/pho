@@ -50,13 +50,6 @@ void* set_interpreter_context(void* ctx) {
     return tsrm_set_interpreter_context(ctx);
 }
 
-void eval_and_print(char* script) {
-    void* ret = NULL;
-
-    zend_eval_string(script, ret, "<eval_and_print>", tsrm_ls);
-    printf("eval_and_print> %p\n", ret);
-}
-
 void* set_int_value(char* key, long v) {
     zval *value;
 
