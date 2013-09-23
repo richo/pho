@@ -59,28 +59,20 @@ void* set_int_value(char* key, long v) {
 }
 
 // Stupid debugging harness to test variable traversal
-struct php_ret_t* get_int_value(char* key) {
+struct php_ret_t* get_value(char* key) {
     zval **value;
     struct php_ret_t *ret;
-
-    fprintf(stderr, "C lookup: %s\n", key);
 
     if(zend_hash_find(EG(active_symbol_table),
                 key,
                 strlen(key) + 1,
                 (void **)&value) == SUCCESS) {
         ret = zval2go(value);
-        fprintf(stderr, "C data location: %p\n", &(ret->data.as_long));
-        if (ret->typ == php_int_t) {
-            fprintf(stderr, "C int Value: %d\n", ret->data.as_long);
+        if (ret)
             return ret;
-        } else if (ret->typ == php_str_t) {
-            fprintf(stderr, "C str Value: %s\n", ret->data.as_ptr);
-            return ret;
-        }
     }
 
-    return ret;
+    return NULL;
 }
 
 struct php_ret_t* zval2go(zval **value) {
@@ -103,8 +95,7 @@ struct php_ret_t* zval2go(zval **value) {
             ret->typ = php_str_t;
             break;
         default:
-            // Not implemented
-            break;
+            return NULL;
     }
     return ret;
 }

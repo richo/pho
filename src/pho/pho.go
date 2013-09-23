@@ -23,9 +23,9 @@ func set_int_value(key string, value int) {
     C.set_int_value(ckey, (C.long)(value))
 }
 
-func get_int_value (key string) *C.struct_php_ret_t {
+func get_value (key string) *C.struct_php_ret_t {
     ckey := C.CString(key)
-    return C.get_int_value(ckey)
+    return C.get_value(ckey)
 }
 
 func php_eval_file(filename string) {
