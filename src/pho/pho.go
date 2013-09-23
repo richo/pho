@@ -6,6 +6,7 @@ import (
     // #include "../../ext/hacks.h"
     "C"
     // "reflect"
+    "sync"
     php "pho/runtime"
     args "pho/args"
 )
@@ -28,24 +29,34 @@ func get_value (key string) *C.struct_php_ret_t {
     return C.get_value(ckey)
 }
 
-func php_eval_file(filename string) {
-    C.eval_file(C.CString(filename))
+func php_eval_file(filename string) int {
+    ret := int(C.eval_file(C.CString(filename)))
+    return ret
+}
+
+func php_eval_file_in_wg(wg *sync.WaitGroup, filename string) {
+    php_eval_file(filename)
+    wg.Done()
 }
 
 func main() {
     rt := php.INIT()
     args := args.Parse(os.Args)
+    var wg sync.WaitGroup
 
     for _, script := range args.Goscripts {
         // Setup a new runtime environment, dispatch in a goroutine
         log.Printf("Dispatching %s in a new noodle", script)
+        wg.Add(1)
         ctx := rt.NewContext()
         C.set_interpreter_context(ctx.Context)
-        php_eval_file(script)
+        go php_eval_file_in_wg(&wg, script)
     }
 
     for _, script := range args.Scripts {
         log.Printf("Evaluating %s", script)
         php_eval_file(script)
     }
+
+    wg.Wait()
 }
