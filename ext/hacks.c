@@ -24,7 +24,7 @@ void eval(char* script) {
     zend_eval_string(script, NULL, name, tsrm_ls);
 }
 
-void eval_file(char* filename) {
+int eval_file(char* filename) {
   zend_file_handle script;
 
   script.type = ZEND_HANDLE_FP;
@@ -33,12 +33,15 @@ void eval_file(char* filename) {
 
   if (!(script.handle.fp = fopen(filename, "rb"))) {
       // XXX Handle error
-      return;
+      return -1;
   }
 
   script.free_filename = 0;
 
-  php_execute_script(&script, tsrm_ls);
+  if (php_execute_script(&script, tsrm_ls) == SUCCESS)
+      return 1;
+  else
+      return 0;
 }
 
 
