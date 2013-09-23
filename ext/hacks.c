@@ -42,6 +42,14 @@ void eval_file(char* filename) {
 }
 
 
+void* new_interpreter_context(void) {
+    return tsrm_new_interpreter_context();
+}
+
+void* set_interpreter_context(void* ctx) {
+    return tsrm_set_interpreter_context(ctx);
+}
+
 void eval_and_print(char* script) {
     void* ret = NULL;
 

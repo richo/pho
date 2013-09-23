@@ -33,8 +33,16 @@ func php_eval_file(filename string) {
 }
 
 func main() {
-    php.INIT()
+    rt := php.INIT()
     args := args.Parse(os.Args)
+
+    for _, script := range args.Goscripts {
+        // Setup a new runtime environment, dispatch in a goroutine
+        log.Printf("Dispatching %s in a new noodle", script)
+        ctx := rt.NewContext()
+        C.set_interpreter_context(ctx.Context)
+        php_eval_file(script)
+    }
 
     for _, script := range args.Scripts {
         log.Printf("Evaluating %s", script)

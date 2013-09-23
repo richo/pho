@@ -22,5 +22,7 @@ void* set_int_value(char*, long);
 void*** init_php(void);
 void eval(char*);
 void eval_file(char*);
+void* new_interpreter_context(void);
+void* set_interpreter_context(void*);
 
 #endif

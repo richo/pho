@@ -14,7 +14,7 @@ type PhoRuntime struct {
 
 type PhoContext struct {
     rt *PhoRuntime
-    ctx unsafe.Pointer
+    Context unsafe.Pointer
 }
 
 func INIT() PhoRuntime {
@@ -25,6 +25,6 @@ func INIT() PhoRuntime {
 
 func (rt *PhoRuntime) NewContext() PhoContext {
     log.Print("intializing php context")
-    // TODO
-    return PhoContext{rt, nil}
+    ctx := unsafe.Pointer(C.new_interpreter_context())
+    return PhoContext{rt, ctx}
 }
