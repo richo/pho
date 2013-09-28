@@ -20,6 +20,7 @@ struct php_ret_t {
 struct php_ret_t* get_value(char* key);
 void* set_int_value(char*, long);
 void*** init_php(void);
+void*** init_php2(int, char**);
 void eval(char*);
 int eval_file(char*);
 void* new_interpreter_context(void);

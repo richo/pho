@@ -19,6 +19,11 @@ void*** init_php(void) {
     return tsrm_ls;
 }
 
+void*** init_php2(int argc, char** argv) {
+    php_embed_init(argc, argv, &tsrm_ls);
+    return tsrm_ls;
+}
+
 void eval(char* script) {
     static const char* name = "<EVAL>";
     zend_eval_string(script, NULL, name, tsrm_ls);

@@ -40,9 +40,16 @@ func php_eval_file_in_wg(wg *sync.WaitGroup, filename string) {
 }
 
 func main() {
-    rt := php.INIT()
+    var rt php.PhoRuntime
     args := args.Parse(os.Args)
     var wg sync.WaitGroup
+
+    argc := len(args.Rest)
+    if argc > 0 {
+        rt = php.INIT2(argc, args.Rest)
+    } else {
+        rt = php.INIT()
+    }
 
     for _, script := range args.Goscripts {
         // Setup a new runtime environment, dispatch in a goroutine
