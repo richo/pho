@@ -1,28 +1,16 @@
 pho
 ===
 
-PHP and Golang. Always a good decision.
+Slash and Golang. Always a good decision.
 
 ### Hacking
 
 Take careful note of where you branch if you hack on this repo. It will undergo and epic rebase at some point.
 
-### Build you some php
+### Build you some slash
 
 ```
-CC=clang ./configure --enable-maintainer-zts --enable-debug --without-pear --disable-cli --disable-cgi --enable-embed --prefix ~/.php/versions/trunk
-```
-
-Note that on OSX you'll want to merge the pho/master branch of [my fork][1] of
-php into your branch, it patches the libtool macros to ensure you get a shared
-library and not a Mach Bundle.
-
-Then install it into ./libs in this repo.
-
-### Debugging
-
-```bash
-LD_LIBRARY_PATH=~/.php/versions/trunk/lib PHP_LIB_PATH=~/.php/versions/trunk/lib/libphp5.so gdb bin/pho
+CC=clang ./configure --debug --no-ext=json --no-ext=markdown --no-ext=mysql --no-ext=curl --no-ext=gcrypt --prefix ~/.slash/versions/trunk
 ```
 
 #### What people are saying:
