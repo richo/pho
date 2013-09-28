@@ -1,14 +1,14 @@
 GOPATH=$(PWD)
 export GOPATH
 
-PHP_HOME=$(HOME)/.php/versions/trunk
-CGO_LDFLAGS=-L$(PWD)/lib -lhacks -lphp5
+SLASH_HOME=$(HOME)/.slash/versions/trunk
+SLASH_OPTS=-lgmp -liconv -lpcre
+CGO_LDFLAGS=-L$(PWD)/lib -lhacks
 export CGO_LDFLAGS
 
 # Hack, fixup
 CC=clang
 export CC
-PHPFLAGS=-Wl,-rpath ${PHP_HOME}/lib -L${PHP_HOME}/lib -I${PHP_HOME}/include/php -I${PHP_HOME}/include/php/Zend -I${PHP_HOME}/include/php/TSRM -I${PHP_HOME}/include/php/main -lphp5
 
 .PHONY: bin/pho test
 
@@ -18,7 +18,7 @@ bin/pho: lib/libhacks.so
 	go build -work $(GOFLAGS) -o bin/pho pho > .lastbuild
 
 lib/lib%.so: ext/%.c
-	${CC} -shared -fPIC -g -o $@ $^ ${PHPFLAGS}
+	${CC} -shared -fPIC -g -o $@ $^ -I$(SLASH_HOME)/include $(SLASH_HOME)/lib/libslash.a $(SLASH_OPTS)
 
 .test/%: test/%.c
 	${CC} -o $@ $^ ${PHPFLAGS}
