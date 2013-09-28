@@ -1,29 +1,11 @@
 #ifndef _HACKS_H
 #define _HACKS_H
 
-enum php_types {
-    php_int_t = 1,
-    php_str_t
-};
+#include <slash.h>
 
-union intern_php_type {
-    long as_long;
-    void* as_ptr;
-    char* as_str;
-};
-
-struct php_ret_t {
-    enum php_types typ;
-    union intern_php_type data;
-};
-
-struct php_ret_t* get_value(char* key);
-void* set_int_value(char*, long);
-void*** init_php(void);
-void*** init_php2(int, char**);
-void eval(char*);
-int eval_file(char*);
-void* new_interpreter_context(void);
-void* set_interpreter_context(void*);
+sl_vm_t* init_slash(const char* name);
+void init_slash_static(void);
+void eval(sl_vm_t* vm, char* script);
+int eval_file(sl_vm_t* vm, char* filename);
 
 #endif

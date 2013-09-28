@@ -4,7 +4,9 @@ export GOPATH
 SLASH_HOME=$(HOME)/.slash/versions/trunk
 SLASH_OPTS=-lgmp -liconv -lpcre
 CGO_LDFLAGS=-L$(PWD)/lib -lhacks
+CGO_CFLAGS=-I$(SLASH_HOME)/include
 export CGO_LDFLAGS
+export CGO_CFLAGS
 
 # Hack, fixup
 CC=clang

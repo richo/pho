@@ -4,38 +4,30 @@ import (
     "log"
     // #include "../../../ext/hacks.h"
     "C"
-    "unsafe"
+    "sync"
 )
 
 type PhoRuntime struct {
-    // void ***rt
-    tsrm unsafe.Pointer
+    vm *_Ctype_sl_vm_t
 }
 
-type PhoContext struct {
-    rt *PhoRuntime
-    Context unsafe.Pointer
+// TODO Arguments don't make a whole bunch of sense
+func (vm PhoRuntime) EvalFile(filename string) int {
+    C.eval_file(vm.vm, C.CString(filename))
+    return 1
 }
 
-func INIT() PhoRuntime {
-    log.Print("initializing php runtime")
-    tsrm := unsafe.Pointer(C.init_php());
-    return PhoRuntime{tsrm}
+var _once_sync sync.Once
+func init_slash_runtime() {
+    _once_sync.Do(func() {
+        log.Print("Initializing slash runtime globally")
+        C.init_slash_static()
+    })
 }
 
-func INIT2(argc int, argv []string) PhoRuntime {
-    var php_argv []*_Ctype_char
-    php_argv = make([]*_Ctype_char, argc)
-
-    for i, arg := range argv {
-        php_argv[i] = C.CString(arg)
-    }
-    tsrm := unsafe.Pointer(C.init_php2(C.int(argc), (**_Ctype_char)(&php_argv[0])))
-    return PhoRuntime{tsrm}
-}
-
-func (rt *PhoRuntime) NewContext() PhoContext {
-    log.Print("intializing php context")
-    ctx := unsafe.Pointer(C.new_interpreter_context())
-    return PhoContext{rt, ctx}
+func INIT(name string) PhoRuntime {
+    init_slash_runtime()
+    log.Printf("initializing slash bowl: %s", name)
+    vm := C.init_slash(C.CString(name));
+    return PhoRuntime{vm}
 }
