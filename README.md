@@ -15,7 +15,7 @@ CC=clang ./configure --debug --no-ext=json --no-ext=markdown --no-ext=mysql --no
 
 #### What people are saying:
 
-Lets be honest, you going to hell is a forgone conclusion by this point, may as well make the most of it.
-~ @rjbone
-
-[1]: https://github.com/richo/php-src
+```
+btw you may be the first person to ever run multiple slash vms at the same time :p
+```
+~ @charliesome
