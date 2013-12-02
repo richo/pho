@@ -9,24 +9,22 @@
 char** php_init_args(void);
 struct php_ret_t* zval2go(zval **value);
 
-static void ***tsrm_ls;
-
 static const int php_argc = 1;
 static const char* php_argv[] = {"embed4", NULL};
 
 void*** init_php(void) {
-    php_embed_init(php_argc, php_argv, &tsrm_ls);
-    return tsrm_ls;
+    php_embed_init(php_argc, php_argv);
+    return NULL;
 }
 
 void*** init_php2(int argc, char** argv) {
-    php_embed_init(argc, argv, &tsrm_ls);
-    return tsrm_ls;
+    php_embed_init(argc, argv);
+    return NULL;
 }
 
 void eval(char* script) {
     static const char* name = "<EVAL>";
-    zend_eval_string(script, NULL, name, tsrm_ls);
+    zend_eval_string(script, NULL, name);
 }
 
 int eval_file(char* filename) {
@@ -43,20 +41,12 @@ int eval_file(char* filename) {
 
   script.free_filename = 0;
 
-  if (php_execute_script(&script, tsrm_ls) == SUCCESS)
+  if (php_execute_script(&script) == SUCCESS)
       return 1;
   else
       return 0;
 }
 
-
-void* new_interpreter_context(void) {
-    return tsrm_new_interpreter_context();
-}
-
-void* set_interpreter_context(void* ctx) {
-    return tsrm_set_interpreter_context(ctx);
-}
 
 void* set_int_value(char* key, long v) {
     zval *value;

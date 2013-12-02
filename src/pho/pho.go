@@ -4,6 +4,7 @@ import (
     "os"
     "log"
     // #include "../../ext/hacks.h"
+    // #cgo LDFLAGS: -L/home/vagrant/.php/versions/trunk/lib
     "C"
     // "reflect"
     "sync"
@@ -40,23 +41,20 @@ func php_eval_file_in_wg(wg *sync.WaitGroup, filename string) {
 }
 
 func main() {
-    var rt php.PhoRuntime
     args := args.Parse(os.Args)
     var wg sync.WaitGroup
 
     argc := len(args.Rest)
     if argc > 0 {
-        rt = php.INIT2(argc, args.Rest)
+        php.INIT2(argc, args.Rest)
     } else {
-        rt = php.INIT()
+        php.INIT()
     }
 
     for _, script := range args.Goscripts {
         // Setup a new runtime environment, dispatch in a goroutine
         log.Printf("Dispatching %s in a new noodle", script)
         wg.Add(1)
-        ctx := rt.NewContext()
-        C.set_interpreter_context(ctx.Context)
         go php_eval_file_in_wg(&wg, script)
     }
 

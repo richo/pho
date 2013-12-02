@@ -3,6 +3,7 @@ package runtime
 import (
     "log"
     // #include "../../../ext/hacks.h"
+    // #cgo LDFLAGS: -L/home/vagrant/.php/versions/trunk/lib
     "C"
     "unsafe"
 )
@@ -32,10 +33,4 @@ func INIT2(argc int, argv []string) PhoRuntime {
     }
     tsrm := unsafe.Pointer(C.init_php2(C.int(argc), (**_Ctype_char)(&php_argv[0])))
     return PhoRuntime{tsrm}
-}
-
-func (rt *PhoRuntime) NewContext() PhoContext {
-    log.Print("intializing php context")
-    ctx := unsafe.Pointer(C.new_interpreter_context())
-    return PhoContext{rt, ctx}
 }
