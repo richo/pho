@@ -51,15 +51,6 @@ func main() {
         rt = php.INIT()
     }
 
-    for _, script := range args.Goscripts {
-        // Setup a new runtime environment, dispatch in a goroutine
-        log.Printf("Dispatching %s in a new noodle", script)
-        wg.Add(1)
-        ctx := rt.NewContext()
-        C.set_interpreter_context(ctx.Context)
-        go php_eval_file_in_wg(&wg, script)
-    }
-
     for _, script := range args.Scripts {
         log.Printf("Evaluating %s", script)
         php_eval_file(script)

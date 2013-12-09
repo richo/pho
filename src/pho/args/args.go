@@ -11,7 +11,6 @@ import (
 const (
     pNone = 0
     pBin = iota
-    pGo = iota
     pRest = iota
     pAddress = iota
 )
@@ -21,7 +20,6 @@ type PhoArgs struct {
     Bin string
     Address string
     Scripts []string
-    Goscripts []string
     Rest []string
 }
 
@@ -54,8 +52,6 @@ func Parse(args []string) PhoArgs {
                 switch i {
                 case "--address":
                     state = pAddress
-                case "--go":
-                    state = pGo
                 case "--prefork":
                     r.Prefork = true;
                 case "--":
@@ -68,10 +64,6 @@ func Parse(args []string) PhoArgs {
                 r.Scripts = append(r.Scripts, i)
                 break
             }
-        case pGo:
-            r.Goscripts = append(r.Goscripts, i)
-            state = pNone
-            break
         }
     }
     return r
