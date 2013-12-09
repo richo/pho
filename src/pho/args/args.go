@@ -13,10 +13,12 @@ const (
     pBin = iota
     pGo = iota
     pRest = iota
+    pAddress = iota
 )
 
 type PhoArgs struct {
     Bin string
+    Address string
     Scripts []string
     Goscripts []string
     Rest []string
@@ -32,12 +34,18 @@ func Parse(args []string) PhoArgs {
             r.Bin = i
             state = pNone
             break
+        case pAddress:
+            r.Address = i
+            state = pNone
+            break
         case pRest:
             r.Rest = append(r.Rest, i)
             break
         case pNone:
             if s.HasPrefix(i, "--") {
                 switch i {
+                case "--address":
+                    state = pAddress
                 case "--go":
                     state = pGo
                 case "--":
