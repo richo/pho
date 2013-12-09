@@ -11,14 +11,6 @@ import (
     args "pho/args"
 )
 
-
-func php_eval(s string) {
-    log.Printf("PHP> %s", s)
-    cstring := C.CString(s)
-    C.eval(cstring)
-
-}
-
 func set_int_value(key string, value int) {
     ckey := C.CString(key)
     C.set_int_value(ckey, (C.long)(value))
