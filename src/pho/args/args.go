@@ -17,6 +17,7 @@ const (
 )
 
 type PhoArgs struct {
+    Prefork bool
     Bin string
     Address string
     Scripts []string
@@ -24,8 +25,15 @@ type PhoArgs struct {
     Rest []string
 }
 
-func Parse(args []string) PhoArgs {
+func initPhoArgs() PhoArgs {
     r := PhoArgs{}
+    r.Prefork = false
+    return r
+}
+
+func Parse(args []string) PhoArgs {
+    r := initPhoArgs()
+
     state := pBin
 
     for _, i := range args {
@@ -48,6 +56,8 @@ func Parse(args []string) PhoArgs {
                     state = pAddress
                 case "--go":
                     state = pGo
+                case "--prefork":
+                    r.Prefork = true;
                 case "--":
                     state = pRest
                 default:
