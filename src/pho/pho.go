@@ -7,8 +7,10 @@ import (
     "C"
     // "reflect"
     "sync"
+    "net"
     php "pho/runtime"
     args "pho/args"
+    network "pho/network"
 )
 
 func set_int_value(key string, value int) {
@@ -31,10 +33,16 @@ func php_eval_file_in_wg(wg *sync.WaitGroup, filename string) {
     wg.Done()
 }
 
+func noop(interface {}) {
+}
+
 func main() {
-    var rt php.PhoRuntime
+    var (
+        rt php.PhoRuntime
+        err error
+        sock net.Listener
+    )
     args := args.Parse(os.Args)
-    var wg sync.WaitGroup
 
     argc := len(args.Rest)
     if argc > 0 {
@@ -43,10 +51,33 @@ func main() {
         rt = php.INIT()
     }
 
+    if (args.Prefork) {
+        if (len(args.Scripts) != 1) {
+            log.Panicf("Can't prefork without exactly one script")
+        }
+
+        if (args.Address != "" && args.Port != 0) {
+            log.Printf("Binding to %s:%d", args.Address, args.Port)
+            sock, err = network.MakeSocketFromAddressAndPort(args.Address, args.Port)
+        } else if (args.Socket != "") {
+            log.Printf("Binding to %s", args.Socket)
+            sock, err = network.MakeSocketFromSocketPath(args.Socket)
+        } else {
+            log.Panicf("Can't prefork without either a bind address and port, or socket path")
+        }
+
+        if (err != nil) {
+            log.Panicf("Couldn't bind socket");
+        }
+
+        noop(sock)
+        noop(rt)
+
+        log.Panicf("Prefork not yet implemented")
+    }
+
     for _, script := range args.Scripts {
         log.Printf("Evaluating %s", script)
         php_eval_file(script)
     }
-
-    wg.Wait()
 }
